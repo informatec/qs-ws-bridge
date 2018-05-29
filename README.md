@@ -15,6 +15,12 @@ Create cert folder in the project folder and place following filles:
 - client_key.pem
 - root.pem
 
+Run following command to install required dependencies:
+ 
+```
+$ npm install
+```
+
 ## Usage
 
 Run the index file to lunch the WebSocket Bridge server.
