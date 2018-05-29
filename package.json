@@ -9,6 +9,7 @@
   "author": "goekaypamuk",
   "license": "MIT",
   "dependencies": {
+    "minimist": "^1.2.0",
     "ws": "^5.2.0"
   }
 }

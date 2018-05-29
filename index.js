@@ -1,7 +1,8 @@
 const WebSocket = require('ws');
 const path = require('path');
 const fs = require('fs');
-
+const argv = require('minimist')(process.argv.slice(2));
+const port = argv['p'] || '5555';
 
 // Set certPath to the path to the directory that contains the exported client certificates in PEM format.
 var certPath =  path.join('C:', 'qs-proxy-server', 'cert');
@@ -40,30 +41,22 @@ wss.on('connection', function connection(ws , req) {
             rejectUnauthorized: false
         });
 
-        wslocal.onopen = function (event) {
+        wslocal.onopen = (event) => {
             // send some message
             console.log('opened')
         }
 
-        wslocal.onerror = function(error) {
+        wslocal.onerror = (error) => {
             console.log(error)
         }
 
-        wslocal.onmessage = function(msg) {
+        wslocal.onmessage = (msg) => {
             ws.send(msg.data);
         }
     } catch(e) {
-        console.log('wslocal exception occured')
+        console.log('wslocal exception:')
         console.log(e)
     }
-
-
-    /*
-        wslocal.onclose = function () {
-            console.log(ws.readyState)
-            ws.close();
-        }
-     */
 
     ws.onclose = () => {
         console.log('Close Connection!');
@@ -72,7 +65,7 @@ wss.on('connection', function connection(ws , req) {
                 if (wslocal.readyState === 1) wslocal.close();
             }
         } catch (e) {
-            console.log('ws exception');
+            console.log('ws exception:');
             console.log(e);
         }
     }
@@ -82,5 +75,5 @@ wss.on('connection', function connection(ws , req) {
 
 process.on('uncaughtException', function (err) {
     console.error(err);
-    console.log("Node NOT Exiting...");
+    console.log("Prevent node exiting...");
 });
