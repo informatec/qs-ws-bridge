@@ -1,0 +1,14 @@
+{
+  "name": "qs-ws-bridge",
+  "version": "1.0.0",
+  "description": "Proxy server to bridge the WebSocket connection",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "goekaypamuk",
+  "license": "MIT",
+  "dependencies": {
+    "ws": "^5.2.0"
+  }
+}
