@@ -60,7 +60,6 @@ wss.on('connection', function connection(ws , req) {
     }
 
     ws.onmessage = (m) => {
-        console.log(m)
         wslocal.send(m.data);
     }
 
