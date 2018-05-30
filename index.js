@@ -24,14 +24,15 @@ var strCertificates = {
 };
 
 
-const wss = new WebSocket.Server({ port: 5555 });
+const wss = new WebSocket.Server({ port: port });
 
 wss.on('connection', function connection(ws , req) {
     //console.log(req.headers)
+    let wslocal
     try {
         var root = Buffer.from(strCertificates.root, 'hex');
 
-        const wslocal = new WebSocket('wss://10.150.0.11:4747/app/', {
+        wslocal = new WebSocket('wss://10.150.0.11:4747/app/', {
             ca: root,
             cert: certificates.cert,
             key: certificates.key,
@@ -56,6 +57,11 @@ wss.on('connection', function connection(ws , req) {
     } catch(e) {
         console.log('wslocal exception:')
         console.log(e)
+    }
+
+    ws.onmessage = (m) => {
+        console.log(m)
+        wslocal.send(m.data);
     }
 
     ws.onclose = () => {
